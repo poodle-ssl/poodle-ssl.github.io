@@ -164,12 +164,47 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-3">Problem</h2>
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered">
         <div class="column is-four-fifths">
+          <h2 class="title">Problem: current SSL methods rely on iconic data assumptions</h2>
+          <hr style="border: 0; border-top: 1px solid lightgray;">
         </div>
       </div>
-    </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-two-fifths is-centered">
+          <img src="static/images/imagenet-image.jpeg" alt="Iconic image" class="image"> 
+        </div>
+        <div class="column is-two-fifths is-centered">
+          <img src="static/images/bdd-image.png" alt="Naturalistic video" class="image"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          Self-supervised learning (SSL) has been able to learn useful visual representations without manual labels.
+          These methods could allow us to harness large-scale internet data such as naturalistic in-the-wild videos for training powerful vision models.
+          Nevertheless, many SSL methods still revolve around the typical ImageNet dataset and may implicitly rely on its biases.
+          In particular, the dataset consists of iconic images (shown above left) which contain a single central subject, and the dataset provides a balanced class distribution of subjects.
+          In contrast, naturalistic videos often contain scene images (shown above right) with multiple objects, imbalanced class distributions, and varying object scales, making them potentially ill-suited for iconic-based methods.
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-two-fifths is-centered">
+          <img src="static/images/bdd-semseg.png" alt="BDD semantic segmentation"> 
+        </div>
+        <div class="column is-two-fifths">
+          <img src="static/images/class-distribution-colored.png" alt="BDD class distribution"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          Iconic SSL methods typically learn representations by minimizing the distance between the pooled features of two augmented global crops of the same image.
+          This approach may not be effective for multi-object scenes because the model would try to learn incorrect invariances between two augmented views which are likely to contain semantically different object instances.
+          Recent works have proposed dense SSL objectives that can differentiate between different objects by learning 2D feature representations which maintain spatial information.
+          However, dense SSL methods may still suffer from spatial region imbalance, where foreground objects are usually smaller than the background (shown above), resulting in poorer performance on important small object classes in downstream tasks.
+          For example, in the BDD100K dataset of driving videos, traffic signs on average occupy only 0.2% of pixels per video frame and thus, may be underrepresented in dense SSL objectives yet traffic signs are crucial for self-driving applications.
+          To bootstrap learning of foreground object semantics, current SSL methods for naturalistic videos still rely on globally-pooled iconic objectives or iconic datasets.
+          Overall, there remains a lack of SSL methods that can leverage both dense SSL and object-centric semantic learning to effectively learn visual representations from naturalistic videos.
+      </div>
   </div>
 </section>
 <!-- End problem -->
@@ -178,10 +213,23 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-3">Method</h2>
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <img src="static/images/method.png" alt="Method figure"> 
+          <h2 class="title">Method</h2>
+          <hr style="border: 0; border-top: 1px solid lightgray;">
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-four-fifths is-centered">
+          <img src="static/images/method.png" alt="Method" class="image"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          To address these challenges of learning from naturalistic video, we propose PooDLe, a SSL method that combines a dense flow equivariance objective on global, paired video frames and a pooled invariance objective on local, small subcrops.
+          The dense objective captures more spatial and geometric details by learning features that are equivariant to flow, or motion, between the pair of frames at the global scene level.
+          On the other hand, the pooled BYOL-style objective learns foreground object semantics from small subcrops.
+          
         </div>
       </div>
     </div>
@@ -193,9 +241,20 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-3">Results</h2>
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered">
         <div class="column is-four-fifths">
+          <h2 class="title">Results</h2>
+          <hr style="border: 0; border-top: 1px solid lightgray;">
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-four-fifths is-centered">
+          <img src="static/images/method.png" alt="Method" class="image"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+
         </div>
       </div>
     </div>
@@ -207,9 +266,15 @@
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
-      <h2 class="title is-3">Conclusion</h2>
-      <div class="columns is-centered has-text-centered">
+      <div class="columns is-centered">
         <div class="column is-four-fifths">
+          <h2 class="title">Conclusion</h2>
+          <hr style="border: 0; border-top: 1px solid lightgray;">
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+
         </div>
       </div>
     </div>
