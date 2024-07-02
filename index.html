@@ -227,9 +227,39 @@
       <div class="columns is-centered">
         <div class="column is-four-fifths">
           To address these challenges of learning from naturalistic video, we propose PooDLe, a SSL method that combines a dense flow equivariance objective on global, paired video frames and a pooled invariance objective on local, small subcrops.
-          The dense objective captures more spatial and geometric details by learning features that are equivariant to flow, or motion, between the pair of frames at the global scene level.
-          On the other hand, the pooled BYOL-style objective learns foreground object semantics from small subcrops.
-          
+          The dense objective captures more spatial and geometric details by learning features that are equivariant to flow, or the motion between paired frames, at the global scene level.
+          On the other hand, the pooled BYOL-style objective learns foreground object semantics from small subcrops, which act as <em>pseudo-iconic</em> data as the subcrop is likely to contain only a single object.
+          We introduce a lightweight spatial decoder module in order to unify these two objectives within a single model architecture.
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-four-fifths is-centered">
+          <img src="static/images/subcrop.png" alt="Method" class="image" style="display: block; margin-left: auto; margin-right: auto;"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          We hypothesize that using small subcrops can mitigate spatial region imbalance because the percentage of subcrops that have sufficient coverage of small objects will be significantly higher than the percentage of pixels that containing those objects.
+          We define <em>sufficient coverage</em> as when a subcrop contains &ge;10% of an object, which we believe is a reasonable threshold as foreground objects have higher information content compared to repetitive background textures and thus, their information is preserved in pooled representations.
+          Using data generated from a toy model of subcrop coverage of foreground objects, the graph above shows that not only is the subcrop probability higher than the pixel probability, but also the relative proportion of subcrop-to-pixel probability (green labels) is much greater for smaller objects.
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-two-fifths is-centered">
+          <img src="static/images/base-architecture.png" alt="Base architecture"> 
+        </div>
+        <div class="column is-two-fifths">
+          <img src="static/images/spatial-decoder-architecture.png" alt="Spatial decoder architecture"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
+          Consider a typical convolutional encoder network with multiple feature levels of decreasing resolution scale, such as ResNet-50.
+          A naive baseline (shown above left) is to apply both objectives at the last feature level.
+          However, the downsampling effect of the encoder (e.g. 32x in ResNet-50) limits the preservation of small objects and fine details for the dense objective.
+          To remedy this, we introduce a spatial decoder module (shown above right) that leverages skip connections to earlier feature layers to upsample and refine the last-layer encoder features into a higher-resolution feature map to be used for the dense objective.
+          We keep the pooled objective at the last encoder layer following prior SSL methods.
+          Our intuition is that the last-layer encoder features serve as an information bottleneck, because they need to capture high-level object invariances to optimize the pooled objective, but also must preserve sufficient spatial information to be readily upsampled by the spatial decoder and ultimately, satisfy the dense objective.
         </div>
       </div>
     </div>
@@ -249,12 +279,20 @@
       </div>
       <div class="columns is-centered image-container">
         <div class="column is-four-fifths is-centered">
-          <img src="static/images/method.png" alt="Method" class="image"> 
+          <img src="static/images/bdd-results-table.png" alt="BDD Results" class="image"> 
         </div>
       </div>
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-four-fifths is-centered">
+          <img src="static/images/groupings-results-table.png" alt="Grouping Results" class="image"> 
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths">
         </div>
       </div>
     </div>
