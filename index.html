@@ -171,40 +171,57 @@
         </div>
       </div>
       <div class="columns is-centered image-container">
-        <div class="column is-two-fifths is-centered">
-          <img src="static/images/imagenet-image.jpeg" alt="Iconic image" class="image"> 
+        <div class="column is-two-fifths">
+          <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
+            <img src="static/images/imagenet-image.jpeg" alt="Iconic image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Iconic image from ImageNet</figcaption>
         </div>
-        <div class="column is-two-fifths is-centered">
-          <img src="static/images/bdd-image.png" alt="Naturalistic video" class="image"> 
+        <div class="column is-two-fifths">
+          <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
+            <img src="static/images/bdd-image.png" alt="Naturalistic video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Scene image from BDD100K driving video</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          Self-supervised learning (SSL) has been able to learn useful visual representations without manual labels.
-          These methods could allow us to harness large-scale internet data such as naturalistic in-the-wild videos for training powerful vision models.
-          Nevertheless, many SSL methods still revolve around the typical ImageNet dataset and may implicitly rely on its biases.
-          In particular, the dataset consists of iconic images (shown above left) which contain a single central subject, and the dataset provides a balanced class distribution of subjects.
-          In contrast, naturalistic videos often contain scene images (shown above right) with multiple objects, imbalanced class distributions, and varying object scales, making them potentially ill-suited for iconic-based methods.
+        <div class="column is-size-5 is-four-fifths">
+          Self-supervised learning (SSL) is able to learn visual representations without manual labels, enabling the use of large-scale internet data such as naturalistic video for training.
+          <!-- These methods could allow us to harness large-scale internet data such as naturalistic in-the-wild videos for training powerful vision models. -->
+          However, many SSL methods still revolve around the ImageNet dataset, which consists of iconic images with a single central subject and a balanced class distribution.
+          <!-- Nevertheless, many SSL methods still revolve around the typical ImageNet dataset and may implicitly rely on its biases. -->
+          <!-- In particular, the dataset consists of iconic images (shown above left) which contain a single central subject, and the dataset provides a balanced class distribution of subjects. -->
+          In contrast, naturalistic videos often contain scenes with multiple objects, imbalanced class distributions, and varying object scales, making them ill-suited for iconic SSL methods.
         </div>
       </div>
       <div class="columns is-centered image-container">
-        <div class="column is-two-fifths is-centered">
-          <img src="static/images/bdd-semseg.png" alt="BDD semantic segmentation"> 
+        <div class="column is-two-fifths">
+          <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
+            <img src="static/images/bdd-semseg.png" alt="BDD semantic segmentation" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Semantic segmentation map for multi-object scene from BDD100K</figcaption>
         </div>
         <div class="column is-two-fifths">
-          <img src="static/images/class-distribution-colored.png" alt="BDD class distribution"> 
+          <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
+            <img src="static/images/class-distribution-colored.png" alt="BDD class distribution" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Crucial foreground objects only represent a small proportion of pixels</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          Iconic SSL methods typically learn representations by minimizing the distance between the pooled features of two augmented global crops of the same image.
-          This approach may not be effective for multi-object scenes because the model would try to learn incorrect invariances between two augmented views which are likely to contain semantically different object instances.
-          Recent works have proposed dense SSL objectives that can differentiate between different objects by learning 2D feature representations which maintain spatial information.
-          However, dense SSL methods may still suffer from spatial region imbalance, where foreground objects are usually smaller than the background (shown above), resulting in poorer performance on important small object classes in downstream tasks.
-          For example, in the BDD100K dataset of driving videos, traffic signs on average occupy only 0.2% of pixels per video frame and thus, may be underrepresented in dense SSL objectives yet traffic signs are crucial for self-driving applications.
-          To bootstrap learning of foreground object semantics, current SSL methods for naturalistic videos still rely on globally-pooled iconic objectives or iconic datasets.
-          Overall, there remains a lack of SSL methods that can leverage both dense SSL and object-centric semantic learning to effectively learn visual representations from naturalistic videos.
+        <div class="column is-size-5 is-four-fifths">
+          Iconic SSL methods learn pooled features from large crops of an image, which may not be effective for multi-object scenes where each crop may contain different objects.
+          Recently proposed dense SSL objectives differentiate between different objects by learning 2D feature maps which maintain spatial information.
+          <!-- Iconic SSL methods typically learn representations by minimizing the distance between the pooled features of two augmented global crops of the same image. -->
+          <!-- This approach may not be effective for multi-object scenes because the model would try to learn incorrect invariances between two augmented views which are likely to contain semantically different object instances. -->
+          <!-- Recent works have proposed dense SSL objectives that can differentiate between different objects by learning 2D feature representations which maintain spatial information. -->
+          Nevertheless, dense SSL can suffer from spatial region imbalance, where the model is incentivized to focus on the background rather than smaller foreground objects.
+          To bootstrap learning of foreground objects, current methods for naturalistic video still rely on globally-pooled iconic objectives or iconic datasets.
+          <!-- For example, in the BDD100K dataset of driving videos, traffic signs on average occupy only 0.2% of pixels per video frame and thus, may be underrepresented in dense SSL objectives yet traffic signs are crucial for self-driving applications. -->
+          <!-- Overall, there remains a lack of SSL methods that can leverage both dense SSL and object-centric semantic learning to effectively learn visual representations from naturalistic videos. -->
+        </div>
       </div>
+    </div>
   </div>
 </section>
 <!-- End problem -->
@@ -215,51 +232,71 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <h2 class="title">Method</h2>
+          <h2 class="title">Method: Pooled and Dense Learning from naturalistic videos</h2>
           <hr style="border: 0; border-top: 1px solid lightgray;">
         </div>
       </div>
       <div class="columns is-centered image-container">
         <div class="column is-four-fifths is-centered">
-          <img src="static/images/method.png" alt="Method" class="image"> 
+          <figure>
+            <img src="static/images/method.png" alt="Method" class="image"> 
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Overview of PooDLe. <span style="color: green;">Green path</span>: dense objective applied to 2D feature maps of full paired frames outputted by spatial decoder. <span style="color: orange;">Orange path</span>: pooled objective applied to pooled features of flow-aware subcrops outputted by encoder</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          To address these challenges of learning from naturalistic video, we propose PooDLe, a SSL method that combines a dense flow equivariance objective on global, paired video frames and a pooled invariance objective on local, small subcrops.
-          The dense objective captures more spatial and geometric details by learning features that are equivariant to flow, or the motion between paired frames, at the global scene level.
-          On the other hand, the pooled BYOL-style objective learns foreground object semantics from small subcrops, which act as <em>pseudo-iconic</em> data as the subcrop is likely to contain only a single object.
-          We introduce a lightweight spatial decoder module in order to unify these two objectives within a single model architecture.
+        <div class="column is-size-5 is-four-fifths">
+          We propose PooDLe, a SSL method that combines a dense flow equivariance objective and a pooled invariance objective.
+          The dense objective captures spatial information by learning features that are equivariant to flow, or the motion between frames, at the scene level. 
+          Conversely, the pooled objective learns high-level object semantics from small subcrops, which act as <em>pseudo-iconic</em> data.
+          The two objectives are unified within a single architecture that uses a lightweight spatial decoder to upsample high-level features into fine-grained feature maps.
         </div>
       </div>
       <div class="columns is-centered image-container">
         <div class="column is-four-fifths is-centered">
-          <img src="static/images/subcrop.png" alt="Method" class="image" style="display: block; margin-left: auto; margin-right: auto;"> 
+          <figure>
+            <img src="static/images/subcrop.png" alt="Method" class="image" style="display: block; margin-left: auto; margin-right: auto;"> 
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Probability of random subcrop covering &ge; 10% of an object versus pixel-level probability for varying object sizes. Graph data generated using toy simulation</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-size-5 is-four-fifths">
           We hypothesize that using small subcrops can mitigate spatial region imbalance because the percentage of subcrops that have sufficient coverage of small objects will be significantly higher than the percentage of pixels that containing those objects.
+          We believe that the threshold for sufficient coverage can be relatively small because foreground objects have higher information content compared to repetitive background textures, and thus, their information is preserved in pooled representations.
+          The graph above shows that the relative proportion of subcrop-to-pixel probability (<span style="color: green;">green text</span>) is much greater for smaller objects.
+
+          <!-- We hypothesize that using small subcrops can mitigate spatial region imbalance because the percentage of subcrops that have sufficient coverage of small objects will be significantly higher than the percentage of pixels that containing those objects.
           We define <em>sufficient coverage</em> as when a subcrop contains &ge;10% of an object, which we believe is a reasonable threshold as foreground objects have higher information content compared to repetitive background textures and thus, their information is preserved in pooled representations.
-          Using data generated from a toy model of subcrop coverage of foreground objects, the graph above shows that not only is the subcrop probability higher than the pixel probability, but also the relative proportion of subcrop-to-pixel probability (green labels) is much greater for smaller objects.
+          Using data generated from a toy model of subcrop coverage of foreground objects, the graph above shows that not only is the subcrop probability higher than the pixel probability, but also the relative proportion of subcrop-to-pixel probability (green labels) is much greater for smaller objects. -->
         </div>
       </div>
       <div class="columns is-centered image-container">
-        <div class="column is-two-fifths is-centered">
-          <img src="static/images/base-architecture.png" alt="Base architecture"> 
+        <div class="column is-two-fifths">
+          <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
+            <img src="static/images/base-architecture.png" alt="Base architecture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Naive: place both objectives at last encoder layer</figcaption>
         </div>
         <div class="column is-two-fifths">
-          <img src="static/images/spatial-decoder-architecture.png" alt="Spatial decoder architecture"> 
+          <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
+            <img src="static/images/spatial-decoder-architecture.png" alt="Spatial decoder architecture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">PooDLe: pooled objective on last encoder layer; dense objective on high-resolution output from spatial decoder</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-          Consider a typical convolutional encoder network with multiple feature levels of decreasing resolution scale, such as ResNet-50.
+        <div class="column is-size-5 is-four-fifths">
+          How do we combine the pooled and dense objectives within a single architecture?
+          Our intuition is that the pooled objective should operate on high-level semantic features while the dense objective should operate on high-resolution features that preserves small objects and fine details.
+          This leads us to introduce a lightweight spatial decoder that leverages skip connections to earlier layers to upsample features from the last encoder layer into high-resolution feature maps.
+          We believe the last encoder layer serves as an information bottleneck, as the features need to capture high-level object invariance for the pooled objective, but must also preserve spatial information for the spatial decoder and dense objective.
+          <!-- Consider a typical convolutional encoder network with multiple feature levels of decreasing resolution scale, such as ResNet-50.
           A naive baseline (shown above left) is to apply both objectives at the last feature level.
           However, the downsampling effect of the encoder (e.g. 32x in ResNet-50) limits the preservation of small objects and fine details for the dense objective.
           To remedy this, we introduce a spatial decoder module (shown above right) that leverages skip connections to earlier feature layers to upsample and refine the last-layer encoder features into a higher-resolution feature map to be used for the dense objective.
           We keep the pooled objective at the last encoder layer following prior SSL methods.
-          Our intuition is that the last-layer encoder features serve as an information bottleneck, because they need to capture high-level object invariances to optimize the pooled objective, but also must preserve sufficient spatial information to be readily upsampled by the spatial decoder and ultimately, satisfy the dense objective.
+          Our intuition is that the last-layer encoder features serve as an information bottleneck, because they need to capture high-level object invariances to optimize the pooled objective, but also must preserve sufficient spatial information to be readily upsampled by the spatial decoder and ultimately, satisfy the dense objective. -->
         </div>
       </div>
     </div>
@@ -273,26 +310,45 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <h2 class="title">Results</h2>
+          <h2 class="title">Results: semantic segmentation and object detection</h2>
           <hr style="border: 0; border-top: 1px solid lightgray;">
         </div>
       </div>
       <div class="columns is-centered image-container">
         <div class="column is-four-fifths is-centered">
-          <img src="static/images/bdd-results-table.png" alt="BDD Results" class="image"> 
+          <figure>
+            <img src="static/images/bdd-results-table.png" alt="BDD Results" class="image"> 
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">BDD100K semantic segmentation and object detection and Cityscapes semantic segmentation results using either lightweight or heavier readout headers</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-size-5 is-four-fifths">
+          PooDLe outperforms all BDD-pretrained baselines by a significant margin and is competitive with ImageNet (IN1K) baselines despite facing spatial region and class imbalance challenges of learning from BDD's naturalistic videos.
+          PooDLe is also able to leverage initialization from IN1K supervised weights to match the strongest IN1K-pretrained models.
+          <!-- We observe that for BDD100K pretraining, PooDLe outperforms all baselines on all three tasks by a significant margin.
+          BDD-pretrained PooDLe is also competitive with IN1K-pretrained models despite the spatial region and class imbalance of BDD's naturalistic videos.
+          When initialized with weights from IN1K supervised classification pretraining and further pretrained on BDD100K, we observe that PooDLe is able to match or slightly outperform the strongest IN1K-pretrained models. -->
         </div>
       </div>
       <div class="columns is-centered image-container">
-        <div class="column is-four-fifths is-centered">
-          <img src="static/images/groupings-results-table.png" alt="Grouping Results" class="image"> 
+        <div class="column is-three-fifths is-centered">
+          <figure>
+            <img src="static/images/groupings-results-table.png" alt="Grouping Results" class="image"> 
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">BDD100K semantic semgmentation linear readout results with classes grouped by average pixel size (small vs. large) or occurrence frequency (rare vs. common)</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
+        <div class="column is-size-5 is-four-fifths">
+          <!-- We further analyze the BDD semantic segmentation linear readout results by grouping classes by either their average pixel size (small vs. large) or their occurrence proportion (rare vs. common). -->
+          PooDLe improves over FlowE, a dense SSL method, on small classes while maintaining strong performance on large classes, suggesting that PooDLe is able to learn better representations across object scales.
+          Conversely, PooDLe improves over IN1K supervised pretraining on large and common classes.
+          When initialized from IN1K supervised weights, PooDLe is able to retain the strong performance on small and rare classes that likely stems from the class balanced distribution of IN1K.
+          <!-- We observe that FlowE, a dense SSL method, performs well on large classes, but poorly on small classes due to spatial region imbalance.
+          PooDLe improves over FlowE on small classes, while maintaining strong performance on large classes, suggesting that PooDLe is able to learn better representations across object scales. -->
+          <!-- On the other hand, IN1K supervised pretraining underperforms on large and common classes, but outperforms on small and rare classes, which we hypothesize is due to the lack of spatial learning and the class balanced distribution of IN1K respectively.
+          When initialized from IN1K supervised weights, BDD-pretrained PooDLe is able to retain the strong performance on small and rare classes while also improving on large and common classes. -->
         </div>
       </div>
     </div>
@@ -306,13 +362,14 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-four-fifths">
-          <h2 class="title">Conclusion</h2>
+          <h2 class="title">Conclusion: further exploration of learning from naturalistic video</h2>
           <hr style="border: 0; border-top: 1px solid lightgray;">
         </div>
       </div>
       <div class="columns is-centered">
-        <div class="column is-four-fifths">
-
+        <div class="column is-size-5 is-four-fifths">
+          We have proposed PooDLe, a SSL method that combines pooled invariance and dense flow equivariance objectives to learn visual representations from naturalistic videos.
+          We hope that this work will motivate further exploration on how to leverage naturalistic visual data for training next-generation vision models.
         </div>
       </div>
     </div>
