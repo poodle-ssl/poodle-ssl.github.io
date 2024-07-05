@@ -314,6 +314,17 @@
           <hr style="border: 0; border-top: 1px solid lightgray;">
         </div>
       </div>
+      <div class="columns is-centered">
+        <div class="column is-four-fifths is-centered">
+          <figure>
+            <video poster="" id="tree" autoplay controls muted loop height="100%">
+              <source src="static/videos/semseg-comparison.mov"
+              type="video/mp4">
+            </video>  
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Comparison of methods on semantic segmentation linear readout</figcaption>
+        </div>
+      </div>
       <div class="columns is-centered image-container">
         <div class="column is-four-fifths is-centered">
           <figure>
@@ -324,11 +335,26 @@
       </div>
       <div class="columns is-centered">
         <div class="column is-size-5 is-four-fifths">
-          PooDLe outperforms all BDD-pretrained baselines by a significant margin and is competitive with ImageNet (IN1K) baselines despite facing spatial region and class imbalance challenges of learning from BDD's naturalistic videos.
+          PooDLe outperforms all BDD-pretrained baselines by a significant margin and is competitive with ImageNet (IN1K) baselines despite facing spatial region and class imbalance challenges of learning from <a href="https://www.vis.xyz/bdd100k/" target="_blank">BDD100K</a> naturalistic videos.
           PooDLe is also able to leverage initialization from IN1K supervised weights to match the strongest IN1K-pretrained models.
+          In the video, the IN1K supervised baseline generates noisy segmentation boundaries and the FlowE baseline struggles with small objects such as traffic lights while PooDLe gives cleaner boundaries and picks up more small objects.
           <!-- We observe that for BDD100K pretraining, PooDLe outperforms all baselines on all three tasks by a significant margin.
           BDD-pretrained PooDLe is also competitive with IN1K-pretrained models despite the spatial region and class imbalance of BDD's naturalistic videos.
           When initialized with weights from IN1K supervised classification pretraining and further pretrained on BDD100K, we observe that PooDLe is able to match or slightly outperform the strongest IN1K-pretrained models. -->
+        </div>
+      </div>
+      <div class="columns is-centered image-container">
+        <div class="column is-three-fifths is-centered">
+          <figure>
+            <img src="static/images/ade-results-table.png" alt="ADE Results" class="image"> 
+          </figure>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">ADE20K semantic segmentation results using either linear readout or UperNet finetuneing</figcaption>
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-size-5 is-four-fifths">
+          We also experiment with pretraining on the recent <a href="https://huggingface.co/datasets/shawshankvkt/Walking_Tours" target="_blank">WalkingTours</a> (WT) dataset, a first-person video dataset.
+          PooDLe outperforms all WT-pretrained baselines and is competitive with IN1K-pretrained DINO when pretrained on WT<sub>all</sub>.
         </div>
       </div>
       <div class="columns is-centered image-container">
