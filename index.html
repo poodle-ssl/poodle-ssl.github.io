@@ -257,14 +257,14 @@
           <figure>
             <img src="static/images/subcrop.png" alt="Method" class="image" style="display: block; margin-left: auto; margin-right: auto;"> 
           </figure>
-          <figcaption class="has-text-centered" style="margin-top: 10px;">Probability of random subcrop covering &ge; 10% of an object versus pixel-level probability for varying object sizes. Graph data generated using toy simulation</figcaption>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">Probability of random subcrop covering &ge; 10% of an object versus pixel-level probability for varying object sizes. Graph data generated using simulation in toy and empirical settings</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
         <div class="column is-size-5 is-four-fifths">
           We hypothesize that using small subcrops can mitigate spatial region imbalance because the percentage of subcrops that have sufficient coverage of small objects will be significantly higher than the percentage of pixels that containing those objects.
           We believe that the threshold for sufficient coverage can be relatively small because foreground objects have higher information content compared to repetitive background textures, and thus, their information is preserved in pooled representations.
-          The graph above shows that the relative proportion of subcrop-to-pixel probability (<span style="color: green;">green text</span>) is much greater for smaller objects.
+          The graph above shows that the relative difference in subcrop hit probability to pixel probability is greater for smaller objects and tapers off for larger objects.
 
           <!-- We hypothesize that using small subcrops can mitigate spatial region imbalance because the percentage of subcrops that have sufficient coverage of small objects will be significantly higher than the percentage of pixels that containing those objects.
           We define <em>sufficient coverage</em> as when a subcrop contains &ge;10% of an object, which we believe is a reasonable threshold as foreground objects have higher information content compared to repetitive background textures and thus, their information is preserved in pooled representations.
@@ -274,13 +274,13 @@
       <div class="columns is-centered image-container">
         <div class="column is-two-fifths">
           <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
-            <img src="static/images/base-architecture.png" alt="Base architecture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+            <img src="static/images/top-only-decoder.png" alt="Base architecture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
           </figure>
           <figcaption class="has-text-centered" style="margin-top: 10px;">Naive: place both objectives at last encoder layer</figcaption>
         </div>
         <div class="column is-two-fifths">
           <figure class="image" style="height: 0; padding-bottom: 75%; position: relative;">
-            <img src="static/images/spatial-decoder-architecture.png" alt="Spatial decoder architecture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
+            <img src="static/images/top-down-decoder.png" alt="Spatial decoder architecture" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: contain;">
           </figure>
           <figcaption class="has-text-centered" style="margin-top: 10px;">PooDLe: pooled objective on last encoder layer; dense objective on high-resolution output from spatial decoder</figcaption>
         </div>
@@ -330,13 +330,14 @@
           <figure>
             <img src="static/images/bdd-results-table.png" alt="BDD Results" class="image"> 
           </figure>
-          <figcaption class="has-text-centered" style="margin-top: 10px;">BDD100K semantic segmentation and object detection and Cityscapes semantic segmentation results using either lightweight or heavier readout headers</figcaption>
+          <figcaption class="has-text-centered" style="margin-top: 10px;">BDD100K semantic segmentation and object detection and Cityscapes semantic segmentation results using either lightweight or heavier readout headers. *Pretrained on BDD, initialized with supervised IN1K weights</figcaption>
         </div>
       </div>
       <div class="columns is-centered">
         <div class="column is-size-5 is-four-fifths">
-          PooDLe outperforms all BDD-pretrained baselines by a significant margin and is competitive with ImageNet (IN1K) baselines despite facing spatial region and class imbalance challenges of learning from <a href="https://www.vis.xyz/bdd100k/" target="_blank">BDD100K</a> naturalistic videos.
-          PooDLe is also able to leverage initialization from IN1K supervised weights to match the strongest IN1K-pretrained models.
+          PooDLe outperforms all BDD-pretrained baselines by a significant margin on in-distribution BDD semantic segmentation and object detection and transfer to Cityscapes semantic segmentation.
+          PooDLe also surpasses ImageNet (IN1K) supervised pretraining despite the latter's advantages in having a class-balanced dataset with iconic views of objects.
+          In addition, we may pretrain PooDLe on BDD with weights initialized from the IN1K supervised checkpoint to further improve performance.
           In the video, the IN1K supervised baseline generates noisy segmentation boundaries and the FlowE baseline struggles with small objects such as traffic lights while PooDLe gives cleaner boundaries and picks up more small objects.
           <!-- We observe that for BDD100K pretraining, PooDLe outperforms all baselines on all three tasks by a significant margin.
           BDD-pretrained PooDLe is also competitive with IN1K-pretrained models despite the spatial region and class imbalance of BDD's naturalistic videos.
@@ -346,7 +347,7 @@
       <div class="columns is-centered image-container">
         <div class="column is-three-fifths is-centered">
           <figure>
-            <img src="static/images/ade-results-table.png" alt="ADE Results" class="image"> 
+            <img src="static/images/wt-results-table.png" alt="ADE Results" class="image"> 
           </figure>
           <figcaption class="has-text-centered" style="margin-top: 10px;">ADE20K semantic segmentation results using either linear readout or UperNet finetuneing</figcaption>
         </div>
@@ -360,7 +361,7 @@
       <div class="columns is-centered image-container">
         <div class="column is-three-fifths is-centered">
           <figure>
-            <img src="static/images/groupings-results-table.png" alt="Grouping Results" class="image"> 
+            <img src="static/images/grouping-results-table.png" alt="Grouping Results" class="image"> 
           </figure>
           <figcaption class="has-text-centered" style="margin-top: 10px;">BDD100K semantic semgmentation linear readout results with classes grouped by average pixel size (small vs. large) or occurrence frequency (rare vs. common)</figcaption>
         </div>
